@@ -49,7 +49,7 @@ getParsingTables = function(tableSuffix, tableNames = NULL) {
     abstract_copyright = data.table(copyright = ac),
 
     abstract = data.table(
-      text = ac, label = ac, nlm_category = ac),
+      text = ac, label = ac, nlm_category = ac, abstract_pos = ai),
 
     author = data.table(
       author_pos = ai, last_name = ac, fore_name = ac, initials = ac,
@@ -112,7 +112,7 @@ createParsingTables = function(
     names(parTables), function(x) DBI::dbExistsTable(con, x))
   stopifnot(!any(tableExists) || isTRUE(overwrite))
 
-  for (i in 1:length(parTables)) {
+  for (i in seq_len(length(parTables))) {
     if (tableExists[i]) DBI::dbRemoveTable(con, names(parTables)[i])
     createTable(con, names(parTables)[i], parTables[[i]])}
 

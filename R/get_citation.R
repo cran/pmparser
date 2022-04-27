@@ -87,29 +87,35 @@ getCitation = function(
     md5Local = ''}
 
   if (md5Local != md5Remote && isTRUE(checkMd5)) {
+    timmy = getOption('timeout')
+    options(timeout = 60 * 60)
     utils::download.file(citationInfo$download_url, path, mode = 'wb')
+    options(timeout = timmy)
+
     md5Local = tools::md5sum(path)
     if (md5Local != md5Remote) {
       stop('Supplied and computed MD5 checksums do not match.')}}
   pathTmp = pathTmp = tempfile()
   withr::local_file(pathTmp)
-  pathTmpCsv = file.path(pathTmp,
-                         paste0(filenameNoExt, '.csv'),
-                         fsep = if (os == 'Windows') '\\' else .Platform$file.sep)
-  pathTmpCsv2 = file.path(pathTmp,
-                          paste0(filenameNoExt, '_tmp.csv'),
-                          fsep = if (os == 'Windows') '\\' else .Platform$file.sep)
+  pathTmpCsv = file.path(
+    pathTmp, paste0(filenameNoExt, '.csv'),
+    fsep = if (os == 'Windows') '\\' else .Platform$file.sep)
+  pathTmpCsv2 = file.path(
+    pathTmp, paste0(filenameNoExt, '_tmp.csv'),
+    fsep = if (os == 'Windows') '\\' else .Platform$file.sep)
   cmdHead = if (nrows < Inf) {
     if (os != 'Windows') {
       glue('| head -n {nrows + 1L}')
     } else {
-      glue(' \r\n powershell -command "Get-Content -Path {pathTmpCsv} -TotalCount {nrows + 1L} | Set-Content {pathTmpCsv2}" ',
-           ' \r\n powershell -command "Remove-Item {pathTmpCsv}"',
-           ' \r\n powershell -command "Rename-Item {pathTmpCsv2} {pathTmpCsv}"')}
+      glue(
+        ' \r\n powershell -command "Get-Content -Path {pathTmpCsv} -TotalCount',
+        ' {nrows + 1L} | Set-Content {pathTmpCsv2}" ',
+        ' \r\n powershell -command "Remove-Item {pathTmpCsv}"',
+        ' \r\n powershell -command "Rename-Item {pathTmpCsv2} {pathTmpCsv}"')}
   } else {
     ''}
-  dCols = data.table(old = c('citing', 'referenced'),
-                     new = c('citing_pmid', 'cited_pmid'))
+  dCols = data.table(
+    old = c('citing', 'referenced'), new = c('citing_pmid', 'cited_pmid'))
 
   if (is.null(con)) {
     if (tools::file_ext(path) == 'zip') {
@@ -159,7 +165,7 @@ getCitation = function(
   #   col_types = vroom::cols(citing = 'i', referenced = 'i'))
 
   # change column names in citation table
-  for (i in 1:nrow(dCols)) {
+  for (i in seq_len(nrow(dCols))) {
     q = glue_sql('alter table {`citationName`} rename column \\
                  {`dCols[i]$old`} to {`dCols[i]$new`}', .con = con)
     x = DBI::dbExecute(con, q)}

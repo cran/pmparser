@@ -2,6 +2,7 @@
 #' @importFrom foreach foreach %do% %dopar%
 #' @importFrom glue glue glue_sql
 #' @importFrom xml2 xml_find_all xml_find_first xml_text xml_attr xml_length xml_integer
+#' @importFrom curl curl
 NULL
 
 
@@ -16,7 +17,8 @@ parsePubmedXmlCore = function(
   # create separate connection for each parallel process
   con = if (is.null(dbname)) NULL else connect(dbtype, dbname, ...)
 
-  rawXml = xml2::read_xml(file.path(xmlDir, filename))
+  rawXml = xml2::read_xml(
+    file.path(xmlDir, filename), options = c('NOBLANKS', 'HUGE'))
   writeLogFile(logPath, data.table(filename, 'read_xml', 0, NA))
 
   step = 'pmid_status'
