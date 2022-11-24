@@ -87,6 +87,10 @@
 #'   first data.table lacks columns for `equal_contrib` and `collective_name`
 #'   and the fifth data.table does not exist.
 #'
+#'   `parseOther()`: a list of data.tables parsed from the OtherAbstract and
+#'   OtherID sections. The first has columns `text`, `type`, and `language`. The
+#'   second has columns `source` and `id_value`.
+#'
 #' @examples
 #' library('data.table')
 #' library('xml2')
@@ -113,6 +117,7 @@
 #' abstractRes = parseAbstract(pmXml, dPmid)
 #' authorRes = parseAuthor(pmXml, dPmid)
 #' investigatorRes = parseInvestigator(pmXml, dPmid)
+#' otherRes = parseOther(pmXml, dPmid)
 #'
 #' @seealso [getCitation()], [modifyPubmedDb()]
 #'
@@ -153,7 +158,7 @@ parseArticleId = function(pmXml, dPmid, con = NULL, tableSuffix = NULL) {
 
   x2 = xml_find_all(x1[nIds > 0], './/ArticleId')
   x3 = data.table(
-    dPmid[rep.int(1:.N, nIds)],
+    dPmid[rep.int(seq_len(.N), nIds)],
     id_type = xml_attr(x2, 'IdType'),
     id_value = xml_text(x2))
   x4 = x3[id_type %in% c('doi', 'pmc')]
@@ -205,7 +210,7 @@ parsePubHistory = function(pmXml, dPmid, con = NULL, tableSuffix = NULL) {
   x2 = xml_find_all(x1[nHist > 0], './/PubMedPubDate')
 
   x4 = data.table(
-    dPmid[rep.int(1:.N, nHist)],
+    dPmid[rep.int(seq_len(.N), nHist)],
     pub_status = xml_attr(x2, 'PubStatus'),
     y = xml_text(xml_find_all(x2, './/Year')),
     m = xml_text(xml_find_all(x2, './/Month')),
@@ -275,7 +280,7 @@ parsePubType = function(pmXml, dPmid, con = NULL, tableSuffix = NULL) {
   x2 = xml_find_all(x1[n > 0], './/PublicationType')
 
   x3 = data.table(
-    dPmid[rep.int(1:.N, xml_length(x1))],
+    dPmid[rep.int(seq_len(.N), xml_length(x1))],
     type_name = xml_text(x2),
     type_id = xml_attr(x2, 'UI'))
 
@@ -302,26 +307,26 @@ parseMesh = function(pmXml, dPmid, con = NULL, tableSuffix = NULL) {
 
   x2 = xml_find_all(x1[nDescPerPmid > 0], './/DescriptorName')
   x3 = data.table(
-    dPmid[rep.int(1:.N, nDescPerPmid)],
+    dPmid[rep.int(seq_len(.N), nDescPerPmid)],
     descriptor_name = xml_text(x2),
     descriptor_ui = xml_attr(x2, 'UI'),
     descriptor_major_topic = xml_attr(x2, 'MajorTopicYN'))
 
   if (nrow(x3) > 0) {
-    x3[, descriptor_pos := 1:.N, by = pmid]
+    x3[, descriptor_pos := seq_len(.N), by = pmid]
   } else {
     x3[, descriptor_pos := ai]}
   setcolorder(x3, c(colnames(dPmid), 'descriptor_pos'))
 
   x4 = xml_find_all(x1[nDescPerPmid > 0], './/MeshHeading')
   x5 = xml_find_all(x4, './/QualifierName', flatten = FALSE)
-  nQualPerDesc = sapply(x5, length)
+  nQualPerDesc = lengths(x5)
 
   descPos = unlist(lapply(nDescPerPmid[nDescPerPmid > 0], function(n) 1:n))
 
   if (length(nQualPerDesc) > 0 && sum(nQualPerDesc) > 0) {
     x6 = data.table(
-      x3[rep.int(1:.N, nQualPerDesc), colnames(dPmid), with = FALSE],
+      x3[rep.int(seq_len(.N), nQualPerDesc), colnames(dPmid), with = FALSE],
       descriptor_pos = rep.int(descPos, nQualPerDesc),
       qualifier_name = unlist(lapply(x5, xml_text)),
       qualifier_ui = unlist(lapply(x5, function(x) xml_attr(x, 'UI'))),
@@ -355,7 +360,7 @@ parseKeyword = function(pmXml, dPmid, con = NULL, tableSuffix = NULL) {
   x3 = xml_find_all(x1[n > 0], './/Keyword')
 
   x4 = data.table(
-    dPmid[rep.int(1:.N, n)],
+    dPmid[rep.int(seq_len(.N), n)],
     keyword_name = trimws(xml_text(x3), whitespace = '[ \t\r\n\uFEFF]'),
     major_topic = xml_attr(x3, 'MajorTopicYN'))
 
@@ -382,7 +387,7 @@ parseGrant = function(pmXml, dPmid, con = NULL, tableSuffix = NULL) {
   x3 = xml_find_all(x1[n > 0], './/Grant')
 
   x4 = data.table(
-    dPmid[rep.int(1:.N, n)],
+    dPmid[rep.int(seq_len(.N), n)],
     grant_id = xml_text(xml_find_first(x3, './/GrantID')),
     acronym = xml_text(xml_find_first(x3, './/Acronym')),
     agency = xml_text(xml_find_first(x3, './/Agency')),
@@ -409,7 +414,7 @@ parseChemical = function(pmXml, dPmid, con = NULL, tableSuffix = NULL) {
   x3 = xml_find_first(x2, './/NameOfSubstance')
 
   x4 = data.table(
-    dPmid[rep.int(1:.N, n)],
+    dPmid[rep.int(seq_len(.N), n)],
     registry_number = xml_text(xml_find_first(x2, './/RegistryNumber')),
     substance_name = xml_text(x3),
     substance_ui = xml_attr(x3, 'UI'))
@@ -431,13 +436,13 @@ parseDataBank = function(pmXml, dPmid, con = NULL, tableSuffix = NULL) {
 
   x2 = xml_find_all(x1[nBanksPerPmid > 0], './/DataBank')
   x3 = xml_find_all(x2, './/AccessionNumber', flatten = FALSE)
-  nAccsPerBank = sapply(x3, length)
+  nAccsPerBank = lengths(x3)
 
   x4 = data.table(
-    dPmid[rep.int(1:.N, nBanksPerPmid)],
+    dPmid[rep.int(seq_len(.N), nBanksPerPmid)],
     data_bank_name = xml_text(xml_find_first(x2, './/DataBankName')))
 
-  x5 = x4[rep.int(1:.N, nAccsPerBank)]
+  x5 = x4[rep.int(seq_len(.N), nAccsPerBank)]
   x5[, accession_number := unlist(lapply(x3, xml_text))]
 
   appendTable(con, paste_('data_bank', tableSuffix), x5)
@@ -454,7 +459,7 @@ parseComment = function(pmXml, dPmid, con = NULL, tableSuffix = NULL) {
   x2 = xml_find_all(x1[n > 0], './/CommentsCorrections')
 
   x3 = data.table(
-    dPmid[rep.int(1:.N, n)],
+    dPmid[rep.int(seq_len(.N), n)],
     ref_type = xml_attr(x2, 'RefType'),
     ref_pmid = xml_integer(xml_find_first(x2, './/PMID')))
 
@@ -476,18 +481,47 @@ parseAbstract = function(pmXml, dPmid, con = NULL, tableSuffix = NULL) {
   x4 = xml_find_all(xml_find_all(pmXml, './/Abstract'), './/AbstractText')
 
   x5 = data.table(
-    dPmid[rep.int(1:.N, x3)],
+    dPmid[rep.int(seq_len(.N), x3)],
     text = xml_text(x4),
     label = xml_attr(x4, 'Label'),
     nlm_category = xml_attr(x4, 'NlmCategory'))
   if (nrow(x5) > 0) {
-    x5[, abstract_pos := 1:.N, by = pmid]
+    x5[, abstract_pos := seq_len(.N), by = pmid]
   } else {
     x5[, abstract_pos := as.integer()]}
 
   r = list(x2[!is.na(copyright)], x5)
   names(r) = c(paste_('abstract_copyright', tableSuffix),
                paste_('abstract', tableSuffix))
+
+  for (i in seq_len(length(r))) appendTable(con, names(r)[i], r[[i]])
+  return(r)}
+
+
+#' @rdname parseElement
+#' @export
+parseOther = function(pmXml, dPmid, con = NULL, tableSuffix = NULL) {
+  .N = pmid = NULL
+  stopifnot(length(pmXml) == nrow(dPmid))
+
+  x1 = xml_find_first(pmXml, './/OtherAbstract')
+  idx = xml_length(x1) > 0
+  x2 = data.table(
+    dPmid[idx],
+    text = xml_text(xml_find_first(x1[idx], './/AbstractText')),
+    type = xml_attr(x1[idx], 'Type'),
+    language = xml_attr(x1[idx], 'Language'))
+
+  x3 = xml_find_all(pmXml, './/OtherID', flatten = FALSE)
+  nIdsPerPmid = lengths(x3)
+  x4 = data.table(
+    dPmid[rep.int(seq_len(.N), nIdsPerPmid)],
+    source = unlist(lapply(x3, function(x) xml_attr(x, 'Source'))),
+    id_value = unlist(lapply(x3, xml_text)))
+
+  r = list(x2, x4)
+  names(r) = c(paste_('other_abstract', tableSuffix),
+               paste_('other_id', tableSuffix))
 
   for (i in seq_len(length(r))) appendTable(con, names(r)[i], r[[i]])
   return(r)}
