@@ -152,8 +152,9 @@ getPkgVersion = function(pkgName = 'pmparser') {
   as.character(utils::packageVersion(pkgName))}
 
 
-getReadme = function(remoteDir = 'ftp://ftp.ncbi.nlm.nih.gov/pubmed/baseline/',
-                     filename = 'README.txt', con = NULL) {
+getReadme = function(
+    remoteDir = 'https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/',
+    filename = 'README.txt', con = NULL) {
   txt = RCurl::getURL(glue('{remoteDir}/{filename}'))
   dReadme = data.table(text = txt)
   if (!is.null(con)) DBI::dbWriteTable(con, 'readme', dReadme, overwrite = TRUE)
@@ -171,12 +172,13 @@ names2 = function(x) {
     nms[is.na(nms)] = ''
     nms}}
 
-getOS = function() {
-  return(Sys.info()['sysname'])}
 
-getOSLineDelim = function() {
-  delim = if (getOS() == 'Windows') '\\r\\n' else '\\n'
-  return(delim)}
+getOS = function() Sys.info()['sysname']
+
+
+# getOSLineDelim = function() {
+#   delim = if (getOS() == 'Windows') '\\r\\n' else '\\n'
+#   return(delim)}
 
 
 #' Get Postgres connection parameters
