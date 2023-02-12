@@ -1,6 +1,6 @@
-113f7901f3acb18ad25f974fa221fd1f *DESCRIPTION
+f6fd566a8476cebfc432fb2aa07ce875 *DESCRIPTION
 fe81cb55072c65b1b264d72143e020b5 *NAMESPACE
-a777fdd167c6bddb4d7ab82d9bb1de53 *NEWS.md
+88746f5ad2201af2c0c2f6b641c124e4 *NEWS.md
 7aecb6b03f9025d367e74a83fe12544f *R/bigquery.R
 8d09982ef98d6434bb65cfbc1aec6fbe *R/clickhouse.R
 487333816958a41757b649e793dbe15e *R/drop_pmid_version.R
@@ -25,8 +25,8 @@ d0007102cacf3a98e1b67465d0b798ed *inst/doc/data_dictionary.html
 19bc00234a36cf5b236a41b0d2314e7c *man/modifyPubmedDb.Rd
 d2d0ca28cbeea4a06298c359deb62f0c *man/parseElement.Rd
 6ca7230ac8314dffc4d258070706cec9 *tests/testthat.R
-f89d15d1c349775594f1cd01aa60ffde *tests/testthat/parsing_tables/create_parsing_tables_no_suffix.db
-012f88ce5e33791ed821b8eaea71a517 *tests/testthat/parsing_tables/create_parsing_tables_with_suffix.db
+d9c07b78c883ec293d253551bd07979f *tests/testthat/parsing_tables/create_parsing_tables_no_suffix.db
+95971d58e07e03909738a441f75561de *tests/testthat/parsing_tables/create_parsing_tables_with_suffix.db
 3e6aebddab2a880581812e18d108db8e *tests/testthat/parsing_tables/get_parsing_tables_no_suffix.rds
 0dc73fd20185c55a2cd8172367cc04e6 *tests/testthat/parsing_tables/get_parsing_tables_with_suffix.rds
 4cff4efce36599eec93bd195a05dab91 *tests/testthat/pgpass
@@ -34,11 +34,11 @@ f89d15d1c349775594f1cd01aa60ffde *tests/testthat/parsing_tables/create_parsing_t
 2af827009093bfc5d27b526ff1d37483 *tests/testthat/pubmed_sample/baseline/pubmed23n1166.xml.gz
 df6069a9e32f29ff1a2e7ac47da83004 *tests/testthat/pubmed_sample/baseline/pubmed23n1166.xml.gz.md5
 ce7073dd41e80d25428350f9fc1728c9 *tests/testthat/pubmed_sample/file_info_postdown.csv
-204dbad7226d073582d45d2d157d3c6d *tests/testthat/pubmed_sample/file_info_predown_all.csv
+5d00154e08ae31378ccb199286e5f2a9 *tests/testthat/pubmed_sample/file_info_predown_all.csv
 3e36b8b5d4490553b3ed742aee282df9 *tests/testthat/pubmed_sample/file_info_predown_baseline.csv
-cf8bbc7c45bb98a4ad928a4f1f1d2aca *tests/testthat/pubmed_sample/open_citation_collection.zip
-910316206aaa080e96c23cf39f13ad55 *tests/testthat/pubmed_sample/pmdb_sample_create.db
-f8ab59e3f1b00ec684f8343f9d01bb00 *tests/testthat/pubmed_sample/pmdb_sample_update.db
+ad7863a516349da752863a1015fc16a7 *tests/testthat/pubmed_sample/open_citation_collection.zip
+61d2ed7373d40a9aa0ac0567eb78ebb2 *tests/testthat/pubmed_sample/pmdb_sample_create.db
+e75a240d42e492ba035c810264a4af32 *tests/testthat/pubmed_sample/pmdb_sample_update.db
 489faf1bbc86120d29e0066ba0bfc91c *tests/testthat/pubmed_sample/pubmed23n1166.rds
 3959e6535da2c1d51be10ad5cdc9d2e9 *tests/testthat/pubmed_sample/pubmed23n1167.rds
 e4bdd7b9d7760824b7e95c772e2ff1ad *tests/testthat/pubmed_sample/updatefiles/pubmed23n1167.xml.gz
