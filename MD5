@@ -1,6 +1,6 @@
-f6fd566a8476cebfc432fb2aa07ce875 *DESCRIPTION
+2cdcafaa9af84d6e654b7361fb9dbd76 *DESCRIPTION
 fe81cb55072c65b1b264d72143e020b5 *NAMESPACE
-88746f5ad2201af2c0c2f6b641c124e4 *NEWS.md
+d6dbf06aa5d22f6f355daa27e06fbb93 *NEWS.md
 7aecb6b03f9025d367e74a83fe12544f *R/bigquery.R
 8d09982ef98d6434bb65cfbc1aec6fbe *R/clickhouse.R
 487333816958a41757b649e793dbe15e *R/drop_pmid_version.R
@@ -9,11 +9,11 @@ fe81cb55072c65b1b264d72143e020b5 *NAMESPACE
 e1e4b6a090aca6a9de8f7412c455fa65 *R/get_pubmed_files.R
 35ded9adbced3627cbda67c1308a5f0f *R/get_test_standard.R
 3c44a04936f840e69b39a60cf9c449ae *R/modify_pubmed_db.R
-3d17780c52fcb6688fd22fb2441a1b07 *R/parse_element.R
-a8c63a177693b2cc95e5a5c41fea2b3d *R/parse_person.R
+ffa56c9368e0af50299228c88cb6fc2b *R/parse_element.R
+aa342594bf583cfaec263c1b6e394b58 *R/parse_person.R
 3b7f7a80534450ee96453828815dd528 *R/parse_pubmed_xml.R
 b81829d5c9efbc7539e260823ce85640 *R/utilities.R
-16b7136922db8e66e08e6c60fc7ddfd6 *build/vignette.rds
+8a4dc43bf032ce9efb9e88e10383d776 *build/vignette.rds
 557e23695150360ede2e48db6a317461 *inst/doc/data_dictionary.R
 6faa97db3f10d7d123a1335464785847 *inst/doc/data_dictionary.Rmd
 d0007102cacf3a98e1b67465d0b798ed *inst/doc/data_dictionary.html
