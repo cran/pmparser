@@ -1,6 +1,6 @@
-fc3ef587ec1ae5df777a7cd511f009b9 *DESCRIPTION
+c0d009b98bf65635aca62a4c3396aed9 *DESCRIPTION
 fe81cb55072c65b1b264d72143e020b5 *NAMESPACE
-6a1ff06ebfee61f2bc53b3650ab4c38d *NEWS.md
+5cbfcc652654f6b73a881d497e23226c *NEWS.md
 7aecb6b03f9025d367e74a83fe12544f *R/bigquery.R
 8d09982ef98d6434bb65cfbc1aec6fbe *R/clickhouse.R
 487333816958a41757b649e793dbe15e *R/drop_pmid_version.R
@@ -25,8 +25,8 @@ ae693d80355a3c432dc6af1a1d013fca *inst/extdata/data_dictionary.csv
 19bc00234a36cf5b236a41b0d2314e7c *man/modifyPubmedDb.Rd
 d2d0ca28cbeea4a06298c359deb62f0c *man/parseElement.Rd
 6ca7230ac8314dffc4d258070706cec9 *tests/testthat.R
-30c3c01978e10a6ec8a36077162026b9 *tests/testthat/parsing_tables/create_parsing_tables_no_suffix.db
-66006c38743829b8cdfa24223ccbe688 *tests/testthat/parsing_tables/create_parsing_tables_with_suffix.db
+a521c6ba3f75a76ea9ddb63d6f3a885b *tests/testthat/parsing_tables/create_parsing_tables_no_suffix.db
+3206725be8e97e6cdb2f60fc328295c1 *tests/testthat/parsing_tables/create_parsing_tables_with_suffix.db
 e0b1f15f73cb062ed821c3d4b9921785 *tests/testthat/parsing_tables/get_parsing_tables_no_suffix.rds
 baa63eebf77430e49eab98d71d8be269 *tests/testthat/parsing_tables/get_parsing_tables_with_suffix.rds
 4cff4efce36599eec93bd195a05dab91 *tests/testthat/pgpass
@@ -34,11 +34,11 @@ baa63eebf77430e49eab98d71d8be269 *tests/testthat/parsing_tables/get_parsing_tabl
 13ed5d4bc5f0d53fb598567101049c73 *tests/testthat/pubmed_sample/baseline/pubmed24n1219.xml.gz
 eda6a0f2a0e7ba0bb3bc8591533eafe4 *tests/testthat/pubmed_sample/baseline/pubmed24n1219.xml.gz.md5
 ec20c714ce2e88996d890d0c7f956624 *tests/testthat/pubmed_sample/file_info_postdown.csv
-d63cadfbeab69f14108e8435c4808095 *tests/testthat/pubmed_sample/file_info_predown_all.csv
+43b84641ace0590781eb585df2ca7f52 *tests/testthat/pubmed_sample/file_info_predown_all.csv
 dfc347cb89d4d9e1646603b57daba5de *tests/testthat/pubmed_sample/file_info_predown_baseline.csv
-81c751b1aa09d73c2eadc9b4fd702049 *tests/testthat/pubmed_sample/open_citation_collection.zip
-08e631864716b7181e1ac15ca5321b96 *tests/testthat/pubmed_sample/pmdb_sample_create.db
-f671b7c72b4713ceecedc7747d7f3336 *tests/testthat/pubmed_sample/pmdb_sample_update.db
+e5dfffa12c9b0e684419fce572fa1638 *tests/testthat/pubmed_sample/open_citation_collection.zip
+d7e553d79aceafab93912f66568f0afd *tests/testthat/pubmed_sample/pmdb_sample_create.db
+16cb78a97ea0c1e8d1acf2353bb830d3 *tests/testthat/pubmed_sample/pmdb_sample_update.db
 771de0a9ede1257b4e3ff8fa2b3aaf23 *tests/testthat/pubmed_sample/pubmed24n1219.rds
 3aacc5cad176b0b3bef2cfdefa98afe6 *tests/testthat/pubmed_sample/pubmed24n1220.rds
 6d6ece422cfa3ca16834d4bc6d160368 *tests/testthat/pubmed_sample/updatefiles/pubmed24n1220.xml.gz
